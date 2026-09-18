@@ -5,8 +5,6 @@ async function getWorks() {
   // On convertit la réponse en JSON
   const works = await response.json();
 
-  console.log("Liste des travaux :", works);
-
   return works;
 }
 
