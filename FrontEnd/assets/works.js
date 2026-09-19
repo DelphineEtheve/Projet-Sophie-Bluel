@@ -1,0 +1,88 @@
+// Récupération du backend
+async function getWorks() {
+  const response = await fetch("http://localhost:5678/api/works");
+
+  // On convertit la réponse en JSON
+  const works = await response.json();
+  return works;
+}
+
+// Récupération des catégories depuis le backend
+async function getCategories() {
+    const response = await fetch(
+    "http://localhost:5678/api/categories"
+    );
+
+  const categories = await response.json();
+  return categories 
+  }
+
+
+
+// Affichage de la galerie
+async function displayWorks(works) {
+  //const works = await getWorks();
+
+  const gallery = document.querySelector(".gallery");
+  gallery.innerHTML = "";
+  works.forEach(work => {
+    const figure = document.createElement("figure");
+
+    const img = document.createElement("img");
+    img.src = work.imageUrl;
+    img.alt = work.title;
+
+    const caption = document.createElement("figcaption");
+    caption.textContent = work.title;
+
+    figure.appendChild(img);
+    figure.appendChild(caption);
+    gallery.appendChild(figure);
+  });
+}
+
+
+
+
+// Affichage des filtres
+  function displayFilters(categories, works) {
+    console.log(works);
+    const filtersContainer = document.querySelector(".filters");
+    const categoriesWithAll = [
+        { id: 0, name: "Tous" },
+        ...categories
+    ];
+
+    categoriesWithAll.forEach(category => {
+        const button = document.createElement("button");
+        button.textContent = category.name;
+
+        button.addEventListener("click", () => {
+            console.log(category.id)
+            if (category.id === 0) {
+                displayWorks(works);
+
+            } else {
+                const filteredWorks = works.filter(work =>
+                    work.categoryId === category.id
+                );
+                console.log(filteredWorks);
+                displayWorks(filteredWorks);
+            }
+        });
+
+        filtersContainer.appendChild(button);
+    });
+}
+
+
+async function init() {
+
+    const works = await getWorks();
+    displayWorks(works);
+
+    const categories = await getCategories();
+    displayFilters(categories, works);
+}
+
+init();
