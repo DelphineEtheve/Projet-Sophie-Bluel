@@ -57,8 +57,19 @@ async function displayWorks(works) {
         const button = document.createElement("button");
         button.textContent = category.name;
 
+        if (category.id === 0) {
+            button.classList.add("active");
+        }
+        
         button.addEventListener("click", () => {
-            console.log(category.id)
+
+            // Retire la classe active de tous les boutons
+            document.querySelectorAll(".filters button")
+            .forEach(btn => btn.classList.remove("active"));
+
+            // Ajoute la classe active au bouton cliqué
+            button.classList.add("active");
+            
             if (category.id === 0) {
                 displayWorks(works);
 
