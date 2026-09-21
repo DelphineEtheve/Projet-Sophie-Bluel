@@ -32,10 +32,12 @@ form.addEventListener("submit", async(event) => {
         errorMessage.textContent = "Erreur dans l’identifiant ou le mot de passe";
     }
 
-       
-    console.log(reponse);
-    console.log(reponse.status);
-    console.log(reponse.data)
-
-
+    const data = await reponse.json();  
+    if (reponse.ok) {
+        localStorage.setItem("token", data.token);
+        window.location.href = "index.html";
+    } else {
+        errorMessage.textContent = "Erreur dans l'identifiant ou le mot de passe.";
+    }
+ 
 })
