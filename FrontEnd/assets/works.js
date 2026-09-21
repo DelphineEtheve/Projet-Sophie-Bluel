@@ -86,6 +86,12 @@ async function displayWorks(works) {
     });
 }
 
+// Affichage du mode édition
+function afficherModeEdition(){
+    console.log("Je suis dans la fonction afficherModeEdition")
+    const banner = document.querySelector(".edit-banner");
+    banner.style.display = "flex";
+}
 
 async function init() {
 
@@ -94,6 +100,12 @@ async function init() {
 
     const categories = await getCategories();
     displayFilters(categories, works);
+
+   const token = localStorage.getItem("token");
+
+    if (token) {
+        afficherModeEdition()
+    }
 }
 
 init();

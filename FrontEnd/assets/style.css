@@ -107,6 +107,22 @@ nav a{
 li:hover {
 	color: #B1663C;
 }
+
+.edit-banner {
+    display: none;
+	max-height: 59px;
+	background-color: black;
+	color: white;
+	padding: 21px;
+	justify-content: center;
+	gap: 10px;
+}
+
+.fa-regular {
+	color: white;
+}
+
+
 #introduction {
 	display: flex;
 	align-items: center;
