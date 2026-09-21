@@ -7,6 +7,10 @@ form.addEventListener("submit", async(event) => {
     const email = document.querySelector("#email").value;
     const password = document.querySelector("#password").value;
 
+    const errorMessage = document.querySelector("#error-message");
+
+    errorMessage.textContent = "";
+
          // Vérification que les champs sont bien remplis.
         if (!email || !password) {
             alert("Veuillez remplir tous les champs.");
@@ -22,6 +26,13 @@ form.addEventListener("submit", async(event) => {
             password: password
         })
     });
+
+    // Vérification que l'utilisateur n'a pas fait d'erreur en se connectant
+    if (!reponse.ok) {
+        errorMessage.textContent = "Erreur dans l’identifiant ou le mot de passe";
+    }
+
+       
     console.log(reponse);
     console.log(reponse.status);
     console.log(reponse.data)

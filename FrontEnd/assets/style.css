@@ -199,6 +199,13 @@ form button{
 	text-decoration: underline;
 }
 
+#error-message{
+	color: red;
+	text-align: center;
+	margin-top: 15px;
+	min-height: 20px;
+}
+
 .filters {
     display: flex;
     justify-content: center;
