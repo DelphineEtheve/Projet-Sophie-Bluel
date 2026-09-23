@@ -349,3 +349,74 @@ footer nav ul {
 	margin: 2em
 }
 
+.modal {
+    display: none;
+	
+    position: fixed;
+    inset: 0;
+
+    background-color: rgba(0, 0, 0, 0.3);
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1000;
+}
+
+.modal-content {
+
+    width: 630px;
+    min-height: 700px;
+
+    background-color: white;
+
+    border-radius: 10px;
+
+    position: relative;
+
+    padding: 30px;
+}
+
+.close-modal {
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+
+    border: none;
+    background: none;
+
+    cursor: pointer;
+
+    font-size: 20px;
+}
+
+.modal-content h3 {
+    text-align: center;
+
+    font-family: 'Work Sans', sans-serif;
+    font-size: 26px;
+
+    margin-bottom:auto;
+}
+
+.add-photo {
+
+    display: block;
+
+    margin: 40px auto 0;
+
+    width: 237px;
+    height: 36px;
+
+    border: none;
+    border-radius: 60px;
+
+    background-color: #1D6154;
+    color: white;
+
+    font-family: 'Syne', sans-serif;
+
+    cursor: pointer;
+}
+

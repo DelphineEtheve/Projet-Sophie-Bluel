@@ -1,3 +1,5 @@
+const modal = document.querySelector(".modal");
+
 // Récupération du backend
 async function getWorks() {
   const response = await fetch("http://localhost:5678/api/works");
@@ -46,7 +48,6 @@ async function displayWorks(works) {
 
 // Affichage des filtres
   function displayFilters(categories, works) {
-    console.log(works);
     const filtersContainer = document.querySelector(".filters");
     const categoriesWithAll = [
         { id: 0, name: "Tous" },
@@ -77,7 +78,6 @@ async function displayWorks(works) {
                 const filteredWorks = works.filter(work =>
                     work.categoryId === category.id
                 );
-                console.log(filteredWorks);
                 displayWorks(filteredWorks);
             }
         });
@@ -85,19 +85,21 @@ async function displayWorks(works) {
         filtersContainer.appendChild(button);
     });
 }
-
-// Affichage du mode édition
-function afficherModeEdition(){
-    // Affichage du bandeau noir et de son texte
-    console.log("Je suis dans la fonction afficherModeEdition")
+ // Affichage du bandeau noir du mode connecté
+function displayBanner(){
+     
     const banner = document.querySelector(".edit-banner");
     banner.style.display = "flex";
+}
 
+function displayEditButton(){
     const editProject = document.querySelector(".edit-projects")
-    editProject.style.display = "flex"
+    editProject.style.display = "flex";
+}
 
-    // Affichage et gestion du logout
-    const authLink = document.querySelector("#auth-link");
+// Affichage et gestion du logout
+function updateAuthLink(){
+     const authLink = document.querySelector("#auth-link");
     authLink.textContent = "logout"
 
     authLink.addEventListener("click", (event) => {
@@ -107,6 +109,47 @@ function afficherModeEdition(){
         window.location.href = "index.html";
          }
     });
+}
+
+function openModal() {
+    modal.style.display = "flex";
+}
+
+function closeModal() {
+    modal.style.display = "none";
+}
+
+function initModal(){
+    
+    const openButton =
+    document.querySelector(".edit-projects");
+
+    const closeButton =
+        document.querySelector(".close-modal");
+
+    openButton.addEventListener("click", openModal);
+
+    closeButton.addEventListener("click", closeModal);
+    modal.addEventListener("click", (event) => {
+        if (event.target === modal) { 
+            closeModal();
+        }
+    });
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && modal.style.display === "flex") {
+        closeModal();
+    }
+
+});
+}
+
+// Gestion du mode édition
+function initConnectedMode(){
+    displayBanner()
+    displayEditButton()
+    updateAuthLink()
+    initModal()    
+   
 }
 
 async function init() {
@@ -120,7 +163,7 @@ async function init() {
    const token = localStorage.getItem("token");
 
     if (token) {
-        afficherModeEdition()
+        initConnectedMode()
     }
 }
 
