@@ -32,6 +32,7 @@ body {
 	line-height: 1;
 }
 
+
 main {
     min-height: 70vh;
 }
@@ -51,9 +52,12 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
-body {
+.page-container {
 	max-width: 1140px;
-	margin:auto;
+	margin: auto;
+}
+
+body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 	background-color: #FFFEF8;
@@ -108,15 +112,27 @@ li:hover {
 	color: #B1663C;
 }
 
+
 .edit-banner {
     display: none;
+	width: 1440px;
+	margin: 0 auto;
 	max-height: 59px;
 	background-color: black;
 	color: white;
 	padding: 21px;
 	justify-content: center;
 	gap: 10px;
+/*	position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 100vw;
+ height: 40px;*/
 }
+
+
 
 .fa-regular {
 	color: white;
