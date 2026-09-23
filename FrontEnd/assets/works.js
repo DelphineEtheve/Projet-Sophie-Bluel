@@ -143,6 +143,33 @@ function initModal(){
 });
 }
 
+function displayModalGallery(works) {
+
+    const modalGallery =
+        document.querySelector(".modal-gallery");
+
+    modalGallery.innerHTML = "";
+
+    works.forEach(work => {
+
+        const figure =
+            document.createElement("figure");
+
+        const image =
+            document.createElement("img");
+
+        image.src = work.imageUrl;
+        image.alt = work.title;
+
+        figure.appendChild(image);
+
+        modalGallery.appendChild(figure);
+
+    });
+
+}
+
+
 // Gestion du mode édition
 function initConnectedMode(){
     displayBanner()
@@ -156,6 +183,7 @@ async function init() {
 
     const works = await getWorks();
     displayWorks(works);
+    displayModalGallery(works);
 
     const categories = await getCategories();
     displayFilters(categories, works);

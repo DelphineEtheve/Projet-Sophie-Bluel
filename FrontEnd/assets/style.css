@@ -370,19 +370,16 @@ footer nav ul {
 	
     position: fixed;
     inset: 0;
-
     background-color: rgba(0, 0, 0, 0.3);
-
     justify-content: center;
     align-items: center;
-
     z-index: 1000;
 }
 
 .modal-content {
 
     width: 630px;
-    min-height: 700px;
+    min-height: 688px;
 
     background-color: white;
 
@@ -391,6 +388,33 @@ footer nav ul {
     position: relative;
 
     padding: 30px;
+}
+.modal-gallery img {
+    width: 100%;
+    display: block;
+	height: 102px;
+	object-fit: cover;
+}
+
+.modal-gallery figure {
+    margin: 0;
+}
+
+.modal-gallery {
+	width: 420px;
+	margin: 0 auto;
+    display: grid;
+	grid-template-columns:
+    repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 30px;
+	margin-top: 50px;
+	padding-bottom: 80px;
+}
+
+.modal-content hr {
+    width: 420px;
+	color: #B3B3B3;
 }
 
 .close-modal {
@@ -409,11 +433,10 @@ footer nav ul {
 
 .modal-content h3 {
     text-align: center;
-
     font-family: 'Work Sans', sans-serif;
     font-size: 26px;
-
     margin-bottom:auto;
+	margin-top: 30px;
 }
 
 .add-photo {
