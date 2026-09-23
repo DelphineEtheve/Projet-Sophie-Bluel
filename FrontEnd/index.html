@@ -20,12 +20,11 @@
 
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-	<i class="fa-solid fa-star"></i>
 	<nav>
 		<ul>
 			<li><a href="index.html"> projets</a></li>
 			<li>contact</li>
-			<li><a href="login.html">login</a></li>
+			<li><a id="auth-link" href="login.html">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -43,7 +42,14 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="portfolio-title">
+		    <h2>Mes projets</h2>
+		    <div class="edit-projects">
+       			 <i class="fa-regular fa-pen-to-square"></i>
+				 <span>modifier</span>
+    		</div>
+		</div>
+		
 		
 		<!---Boutons de filtrage des travaux---->
 		<div class="filters"></div>

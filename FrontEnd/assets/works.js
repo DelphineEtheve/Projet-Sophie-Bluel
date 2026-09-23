@@ -88,9 +88,25 @@ async function displayWorks(works) {
 
 // Affichage du mode édition
 function afficherModeEdition(){
+    // Affichage du bandeau noir et de son texte
     console.log("Je suis dans la fonction afficherModeEdition")
     const banner = document.querySelector(".edit-banner");
     banner.style.display = "flex";
+
+    const editProject = document.querySelector(".edit-projects")
+    editProject.style.display = "flex"
+
+    // Affichage et gestion du logout
+    const authLink = document.querySelector("#auth-link");
+    authLink.textContent = "logout"
+
+    authLink.addEventListener("click", (event) => {
+        if (authLink.textContent === "logout") {
+        event.preventDefault();
+        localStorage.removeItem("token");
+        window.location.href = "index.html";
+         }
+    });
 }
 
 async function init() {
