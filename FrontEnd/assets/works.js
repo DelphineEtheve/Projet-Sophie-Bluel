@@ -173,9 +173,11 @@ function displayModalGallery(works) {
         figure.appendChild(trashIcon);
         modalGallery.appendChild(figure);
 
-        trashIcon.addEventListener("click", async () => {
+        
 
-            await fetch(`http://localhost:5678/api/works/${work.id}`,
+        trashIcon.addEventListener("click", async () => {
+            const token = localStorage.getItem("token");
+            const reponse = await fetch(`http://localhost:5678/api/works/${work.id}`,
              {
               method: "DELETE",
               headers: {
@@ -183,6 +185,8 @@ function displayModalGallery(works) {
                 `Bearer ${token}`
               }
             });     
+
+            console.log(reponse.status);
         });
 
     });
