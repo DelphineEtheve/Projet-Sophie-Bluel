@@ -161,11 +161,33 @@ function displayModalGallery(works) {
         image.src = work.imageUrl;
         image.alt = work.title;
 
-        figure.appendChild(image);
+        const trashIcon = document.createElement("i");
 
+        trashIcon.classList.add(
+            "fa-solid",
+            "fa-trash-can",
+            "trash-icon"
+        );
+
+        figure.appendChild(image);
+        figure.appendChild(trashIcon);
         modalGallery.appendChild(figure);
 
+        trashIcon.addEventListener("click", async () => {
+
+            await fetch(`http://localhost:5678/api/works/${work.id}`,
+             {
+              method: "DELETE",
+              headers: {
+                 Authorization:
+                `Bearer ${token}`
+              }
+            });     
+        });
+
     });
+
+    
 
 }
 
