@@ -23,14 +23,14 @@ async function getCategories() {
 
 // Affichage de la galerie
 async function displayWorks(works) {
-  //const works = await getWorks();
-
+  
   const gallery = document.querySelector(".gallery");
   gallery.innerHTML = "";
   works.forEach(work => {
+   
     const figure = document.createElement("figure");
-
     const img = document.createElement("img");
+   
     img.src = work.imageUrl;
     img.alt = work.title;
 
@@ -85,6 +85,8 @@ async function displayWorks(works) {
         filtersContainer.appendChild(button);
     });
 }
+
+
  // Affichage du bandeau noir du mode connecté
 function displayBanner(){
      
@@ -92,6 +94,8 @@ function displayBanner(){
     banner.style.display = "flex";
 }
 
+
+// Affichage du bouton "modifer"
 function displayEditButton(){
     const editProject = document.querySelector(".edit-projects")
     editProject.style.display = "flex";
@@ -111,21 +115,22 @@ function updateAuthLink(){
     });
 }
 
+// Ouverture de la modale
 function openModal() {
     modal.style.display = "flex";
 }
 
+// Fermeture de la modale
 function closeModal() {
     modal.style.display = "none";
 }
 
+// Gestion de l'ouverture et de la fermeture de la modale
 function initModal(){
     
-    const openButton =
-    document.querySelector(".edit-projects");
+    const openButton = document.querySelector(".edit-projects");
 
-    const closeButton =
-        document.querySelector(".close-modal");
+    const closeButton = document.querySelector(".close-modal");
 
     openButton.addEventListener("click", openModal);
 
@@ -143,20 +148,17 @@ function initModal(){
 });
 }
 
+// Affichage de la gallery dans la modale avec l'icône "poubelle"
 function displayModalGallery(works) {
 
-    const modalGallery =
-        document.querySelector(".modal-gallery");
+    const modalGallery = document.querySelector(".modal-gallery");
 
     modalGallery.innerHTML = "";
 
     works.forEach(work => {
 
-        const figure =
-            document.createElement("figure");
-
-        const image =
-            document.createElement("img");
+        const figure = document.createElement("figure");
+        const image = document.createElement("img");
 
         image.src = work.imageUrl;
         image.alt = work.title;
@@ -174,7 +176,7 @@ function displayModalGallery(works) {
         modalGallery.appendChild(figure);
 
         
-
+        // Gestion de la suppression des projets
         trashIcon.addEventListener("click", async () => {
             const token = localStorage.getItem("token");
             const reponse = await fetch(`http://localhost:5678/api/works/${work.id}`,
@@ -187,6 +189,13 @@ function displayModalGallery(works) {
             });     
 
             console.log(reponse.status);
+            
+            if (reponse.ok) {
+
+                const updatedWorks = await getWorks();
+                displayWorks(updatedWorks);
+                displayModalGallery(updatedWorks);
+            }
         });
 
     });
