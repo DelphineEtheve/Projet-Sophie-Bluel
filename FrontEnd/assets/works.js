@@ -1,6 +1,7 @@
 const modal = document.querySelector(".modal");
 const galleryView = document.querySelector(".modal-gallery-view");
 const addPhotoView = document.querySelector(".modal-add-photo");
+ const backButton = document.querySelector(".back-modal");
 
 // Récupération du backend
 async function getWorks() {
@@ -120,6 +121,7 @@ function updateAuthLink(){
 // Ouverture de la modale
 function openModal() {
     modal.style.display = "flex";
+    showGalleryView();
 }
 
 // Fermeture de la modale
@@ -131,11 +133,9 @@ function closeModal() {
 function initModal(){
     
     const openButton = document.querySelector(".edit-projects");
-
     const closeButton = document.querySelector(".close-modal");
-
-    const backButton = document.querySelector(".back-modal");
-
+   
+    
     openButton.addEventListener("click", openModal);
 
     closeButton.addEventListener("click", closeModal);
@@ -159,6 +159,7 @@ function displayModalGallery(works) {
     const modalGallery = document.querySelector(".modal-gallery");
 
     modalGallery.innerHTML = "";
+    backButton.style.display = "none";
 
     works.forEach(work => {
 
@@ -211,12 +212,15 @@ function displayModalGallery(works) {
  function showGalleryView() {
     document.querySelector(".modal-gallery-view").style.display = "block";
     document.querySelector(".modal-add-photo").style.display = "none";
+    backButton.style.display = "none";
+   
 }
 
 // Affichage de l'ajout de photo dans la modale et masquage de la gallery
 function showAddPhotoView() {
     document.querySelector(".modal-gallery-view").style.display = "none";
     document.querySelector(".modal-add-photo").style.display = "block";
+    backButton.style.display = "block";
     console.log("Ajout d'une photo")
 }
 

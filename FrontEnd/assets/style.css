@@ -434,21 +434,28 @@ footer nav ul {
 	color: #B3B3B3;
 }
 
-.close-modal {
+.back-modal {
     position: absolute;
-
-    top: 20px;
-    right: 20px;
-
-    border: none;
     background: none;
-
+    border: none;
     cursor: pointer;
-
-    font-size: 20px;
+    font-size: 21px;
+    top: 25px;
+    left: 25px;
 }
 
-.modal-content h3 {
+.close-modal {
+	position: absolute;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    top: 25px;
+    right: 25px;
+}
+
+.modal-content h3,
+.modal-add-photo h3 {
     text-align: center;
     font-family: 'Work Sans', sans-serif;
     font-size: 26px;
@@ -459,7 +466,6 @@ footer nav ul {
 .add-photo {
 
     display: block;
-
     margin: 40px auto 0;
 
     width: 237px;
@@ -472,11 +478,91 @@ footer nav ul {
     color: white;
 
     font-family: 'Syne', sans-serif;
+    cursor: pointer;
+}
+
+/*** Non affichage(par défaut) de la modale permettant d'ajouter une photo***/
+.modal-add-photo {
+    display: none;
+}
+
+.modal-add-photo {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.upload-area {
+    background-color: #E8F1F6;
+    width: 420px;
+    height: 170px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-radius:3px;
+}
+
+.upload-area i {
+    font-size: 70px;
+    color: #B9C5CC;
+}
+
+.upload-area button {
+    background-color: #CBD6DC;
+    color: #306685;
+
+    border: none;
+    border-radius: 50px;
+
+    width: 175px;
+    height: 36px;
+
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.upload-area p {
+    margin-top: 10px;
+    font-size: 10px;
+}
+
+.modal-add-photo label {
+    margin-top: 30px;
+    margin-bottom: 10px;
+
+}
+
+.modal-add-photo input,
+.modal-add-photo select {
+    height: 50px;
+
+    border: none;
+
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
+
+}
+
+.modal-add-photo hr {
+    margin-top: 40px;
+}
+
+.validate-btn {
+    width: 237px;
+    height: 36px;
+
+    margin: 0 auto;
+
+    border: none;
+    border-radius: 60px;
+
+    background-color: #A7A7A7;
+    color: white;
 
     cursor: pointer;
 }
 
-/*** Affichage de la modale permettant d'ajouter une photo***/
-.modal-add-photo {
-    display: none;
-}
+
