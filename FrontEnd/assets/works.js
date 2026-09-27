@@ -224,12 +224,38 @@ function showAddPhotoView() {
     console.log("Ajout d'une photo")
 }
 
-
+// Gestion de l'affichage de l'ajout de la photo
 function initAddPhotoView() {
     const addPhotoButton = document.querySelector(".add-photo");
     addPhotoButton.addEventListener("click", showAddPhotoView);
 
     
+}
+// Récupération d'une photo
+function initUploadImage() {
+
+    
+    const uploadButton = document.querySelector(".upload-btn");
+    const imageInput = document.querySelector("#image");
+    
+    uploadButton.addEventListener("click", () => {
+        imageInput.click();
+    });
+
+    imageInput.addEventListener("change", () => {
+        const file = imageInput.files[0];
+        const previewImage = document.querySelector(".preview-image");
+        const imageIcon = document.querySelector(".upload-area i");
+        const uploadText = document.querySelector(".upload-area p");
+
+
+        previewImage.src = URL.createObjectURL(file);
+        previewImage.style.display = "block";
+
+        imageIcon.style.display = "none";
+        uploadButton.style.display = "none";
+        uploadText.style.display = "none";
+    });
 }
 
 // Gestion du mode édition
@@ -239,6 +265,7 @@ function initConnectedMode(){
     updateAuthLink()
     initModal()    
     initAddPhotoView()
+    initUploadImage()
 }
 
 async function init() {

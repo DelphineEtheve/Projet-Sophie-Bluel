@@ -379,7 +379,7 @@ footer nav ul {
 .modal-content {
 
     width: 630px;
-    min-height: 688px;
+    height: 670px;
 
     background-color: white;
 
@@ -568,9 +568,14 @@ footer nav ul {
 	width: 420px;
 }
 
+.preview-image {
+    display: none;
+    height: 100%;
+    object-fit: cover;
+}
 .validate-btn {
     margin: 0 auto;
-	margin-top: 25px;
+	margin-top: 35px;
     display: block;
 
     width: 237px;
