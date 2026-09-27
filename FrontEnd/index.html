@@ -81,28 +81,61 @@
 			</nav>		
 		</footer>
 	</div>
-// Affichage statique de la modale
+ <!---Affichage statique de la modale--->
 <div class="modal">
 
     <div class="modal-content">
 
-        <button class="close-modal">
-            <i class="fa-solid fa-xmark"></i>
+		<!---Affichage de la gallery dans la modale--->
+	 	<button class="close-modal">
+           	<i class="fa-solid fa-xmark"></i>
         </button>
 
-        <h3>Galerie photo</h3>
+		<div class="modal-gallery-view">
+        	<h3>Galerie photo</h3>
 
-        <div class="modal-gallery">
+        	<div class="modal-gallery">
 
-        </div>
+        	</div>
 
-        <hr>
+        	<hr>
 
-        <button class="add-photo">
-            Ajouter une photo
-        </button>
+        	<button class="add-photo">
+           		Ajouter une photo
+        	</button>
+		</div>
 
-    </div>
+    	<!---Affichage de l'ajout de la photo--->
+		<div class="modal-add-photo">
+			<button class="back-modal">
+				<i class="fa-solid fa-arrow-left"></i>
+			</button>
+
+    		<h2>Ajout photo</h2>
+
+    		<div class="upload-area">
+        		<i class="fa-regular fa-image"></i>
+
+        		<button type="button">
+        	    	+ Ajouter photo
+        		</button>
+
+        		<p>jpg, png : 4mo max</p>
+    		</div>
+
+    		<label for="title">Titre</label>
+    		<input id="title" type="text">
+
+    		<label for="category">Catégorie</label>
+    		<select id="category"></select>
+
+    		<hr>
+
+    		<button class="validate-btn">
+        		Valider
+    		</button>
+		</div>
+	</div>
 </div>
 </body>
 </html>

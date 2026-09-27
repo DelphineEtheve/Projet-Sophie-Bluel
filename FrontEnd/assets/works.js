@@ -1,4 +1,6 @@
 const modal = document.querySelector(".modal");
+const galleryView = document.querySelector(".modal-gallery-view");
+const addPhotoView = document.querySelector(".modal-add-photo");
 
 // Récupération du backend
 async function getWorks() {
@@ -132,6 +134,8 @@ function initModal(){
 
     const closeButton = document.querySelector(".close-modal");
 
+    const backButton = document.querySelector(".back-modal");
+
     openButton.addEventListener("click", openModal);
 
     closeButton.addEventListener("click", closeModal);
@@ -143,9 +147,10 @@ function initModal(){
     document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && modal.style.display === "flex") {
         closeModal();
-    }
+        }
+    });
 
-});
+    backButton.addEventListener("click",showGalleryView);
 }
 
 // Affichage de la gallery dans la modale avec l'icône "poubelle"
@@ -175,6 +180,8 @@ function displayModalGallery(works) {
         figure.appendChild(trashIcon);
         modalGallery.appendChild(figure);
 
+       
+
         
         // Gestion de la suppression des projets
         trashIcon.addEventListener("click", async () => {
@@ -196,14 +203,30 @@ function displayModalGallery(works) {
                 displayWorks(updatedWorks);
                 displayModalGallery(updatedWorks);
             }
-        });
-
+        });       
     });
 
-    
-
+ }
+ // Affichage de la gallery et masquage de l'ajout de photo dans la modale
+ function showGalleryView() {
+    document.querySelector(".modal-gallery-view").style.display = "block";
+    document.querySelector(".modal-add-photo").style.display = "none";
 }
 
+// Affichage de l'ajout de photo dans la modale et masquage de la gallery
+function showAddPhotoView() {
+    document.querySelector(".modal-gallery-view").style.display = "none";
+    document.querySelector(".modal-add-photo").style.display = "block";
+    console.log("Ajout d'une photo")
+}
+
+
+function initAddPhotoView() {
+    const addPhotoButton = document.querySelector(".add-photo");
+    addPhotoButton.addEventListener("click", showAddPhotoView);
+
+    
+}
 
 // Gestion du mode édition
 function initConnectedMode(){
@@ -211,7 +234,7 @@ function initConnectedMode(){
     displayEditButton()
     updateAuthLink()
     initModal()    
-   
+    initAddPhotoView()
 }
 
 async function init() {

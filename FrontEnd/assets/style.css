@@ -476,3 +476,7 @@ footer nav ul {
     cursor: pointer;
 }
 
+/*** Affichage de la modale permettant d'ajouter une photo***/
+.modal-add-photo {
+    display: none;
+}
