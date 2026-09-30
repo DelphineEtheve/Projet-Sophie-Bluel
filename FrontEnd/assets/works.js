@@ -1,7 +1,12 @@
 const modal = document.querySelector(".modal");
 const galleryView = document.querySelector(".modal-gallery-view");
 const addPhotoView = document.querySelector(".modal-add-photo");
- const backButton = document.querySelector(".back-modal");
+const backButton = document.querySelector(".back-modal");
+const imageInput = document.querySelector("#image");
+const titleInput = document.querySelector("#title");
+const categorySelect = document.querySelector("#category");
+const validateButton = document.querySelector(".validate-btn");
+
 
 // Récupération du backend
 async function getWorks() {
@@ -127,6 +132,7 @@ function openModal() {
 // Fermeture de la modale
 function closeModal() {
     modal.style.display = "none";
+    resetAddPhotoForm();
 }
 
 // Gestion de l'ouverture et de la fermeture de la modale
@@ -181,9 +187,7 @@ function displayModalGallery(works) {
         figure.appendChild(trashIcon);
         modalGallery.appendChild(figure);
 
-       
-
-        
+              
         // Gestion de la suppression des projets
         trashIcon.addEventListener("click", async () => {
             const token = localStorage.getItem("token");
@@ -195,9 +199,7 @@ function displayModalGallery(works) {
                 `Bearer ${token}`
               }
             });     
-
-            console.log(reponse.status);
-            
+           
             if (reponse.ok) {
 
                 const updatedWorks = await getWorks();
@@ -210,18 +212,19 @@ function displayModalGallery(works) {
  }
  // Affichage de la gallery et masquage de l'ajout de photo dans la modale
  function showGalleryView() {
-    document.querySelector(".modal-gallery-view").style.display = "block";
-    document.querySelector(".modal-add-photo").style.display = "none";
+    console.log("showGalleryView");
+    galleryView.style.display = "block";
+    addPhotoView.style.display = "none";
     backButton.style.display = "none";
+    resetAddPhotoForm();
    
 }
 
 // Affichage de l'ajout de photo dans la modale et masquage de la gallery
 function showAddPhotoView() {
-    document.querySelector(".modal-gallery-view").style.display = "none";
-    document.querySelector(".modal-add-photo").style.display = "block";
+    galleryView.style.display = "none";
+    addPhotoView.style.display = "block";
     backButton.style.display = "block";
-    console.log("Ajout d'une photo")
 }
 
 // Gestion de l'affichage de l'ajout de la photo
@@ -234,9 +237,7 @@ function initAddPhotoView() {
 // Récupération d'une photo
 function initUploadImage() {
 
-    
     const uploadButton = document.querySelector(".upload-btn");
-    const imageInput = document.querySelector("#image");
     
     uploadButton.addEventListener("click", () => {
         imageInput.click();
@@ -258,6 +259,119 @@ function initUploadImage() {
     });
 }
 
+// Affichage des catégories pour la liste
+function displayCategories(categories) {
+
+    categorySelect.innerHTML = "";
+
+    const emptyOption = document.createElement("option");
+
+    emptyOption.value = "";
+    emptyOption.textContent = "";
+
+    categorySelect.appendChild(emptyOption);
+
+    categories.forEach(category => {
+
+        const option = document.createElement("option");
+
+        option.value = category.id;
+        option.textContent = category.name;
+
+        categorySelect.appendChild(option);
+    });
+}
+
+// Vérification de la validité du formulaire
+function checkFormValidity() {
+
+    const hasImage = imageInput.files.length > 0;
+    const hasTitle = titleInput.value.trim() !== "";    
+    const hasCategory = categorySelect.value !== "";
+   
+    if (hasImage && hasTitle && hasCategory) {
+        validateButton.style.backgroundColor = "#1D6154";
+
+    } else {
+        validateButton.style.backgroundColor = "#A7A7A7";
+    }
+}
+// Appel de la vérification à chaque changement
+function initFormValidation() {
+  
+    imageInput.addEventListener("change", checkFormValidity);
+    titleInput.addEventListener("input", checkFormValidity);
+    categorySelect.addEventListener("change",checkFormValidity);
+}
+
+// Remise du formulaire d'ajout à l'état initial
+function resetAddPhotoForm() {
+
+    imageInput.value = "";
+    titleInput.value = "";
+    categorySelect.value = "";
+
+    const previewImage = document.querySelector(".preview-image");
+    const imageIcon = document.querySelector(".upload-area i");
+    const uploadButton = document.querySelector(".upload-btn");
+    const uploadText = document.querySelector(".upload-area p");
+
+    previewImage.style.display = "none";
+    imageIcon.style.display = "block";
+    uploadButton.style.display = "block";
+    uploadText.style.display = "block";
+
+    validateButton.style.backgroundColor = "#A7A7A7";
+}
+
+// Création du formData
+function createFormData() {
+
+    const formData = new FormData();
+
+    formData.append("image", imageInput.files[0]);
+    formData.append("title", titleInput.value);
+    formData.append("category", categorySelect.value);
+   
+    return formData;
+}
+
+// Appel de la fonction formData si validation du formulaire
+function initAddWork() {
+
+    validateButton.addEventListener("click", addWork);        
+
+}
+
+// Gestion de l'ajout d'un projet dans l'API
+async function addWork() {
+
+    const token = localStorage.getItem("token");
+
+    const formData = createFormData();
+
+    const response = await fetch("http://localhost:5678/api/works",{
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            body: formData
+        });
+
+    console.log(response.status);
+
+    if (response.ok) {
+        const updatedWorks = await getWorks();
+
+        displayWorks(updatedWorks);
+        displayModalGallery(updatedWorks);
+
+        resetAddPhotoForm();
+
+        showGalleryView();
+    }
+}
+
 // Gestion du mode édition
 function initConnectedMode(){
     displayBanner()
@@ -266,6 +380,8 @@ function initConnectedMode(){
     initModal()    
     initAddPhotoView()
     initUploadImage()
+    initFormValidation()
+    initAddWork()
 }
 
 async function init() {
@@ -276,6 +392,8 @@ async function init() {
 
     const categories = await getCategories();
     displayFilters(categories, works);
+    displayCategories(categories);
+    
 
    const token = localStorage.getItem("token");
 
