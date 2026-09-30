@@ -1,3 +1,4 @@
+let works = [];
 const modal = document.querySelector(".modal");
 const galleryView = document.querySelector(".modal-gallery-view");
 const addPhotoView = document.querySelector(".modal-add-photo");
@@ -10,10 +11,10 @@ const validateButton = document.querySelector(".validate-btn");
 
 // Récupération du backend
 async function getWorks() {
-  const response = await fetch("http://localhost:5678/api/works");
+  const reponse = await fetch("http://localhost:5678/api/works");
 
   // On convertit la réponse en JSON
-  const works = await response.json();
+  works = await reponse.json();
   return works;
 }
 
@@ -55,7 +56,7 @@ async function displayWorks(works) {
 
 
 // Affichage des filtres
-  function displayFilters(categories, works) {
+  function displayFilters(categories) {
     const filtersContainer = document.querySelector(".filters");
     const categoriesWithAll = [
         { id: 0, name: "Tous" },
@@ -71,7 +72,7 @@ async function displayWorks(works) {
         }
         
         button.addEventListener("click", () => {
-
+            console.log("nombre de travaux sous filtre : " + works.length);
             // Retire la classe active de tous les boutons
             document.querySelectorAll(".filters button")
             .forEach(btn => btn.classList.remove("active"));
@@ -201,10 +202,11 @@ function displayModalGallery(works) {
             });     
            
             if (reponse.ok) {
+                works = await getWorks();
 
-                const updatedWorks = await getWorks();
-                displayWorks(updatedWorks);
-                displayModalGallery(updatedWorks);
+                displayWorks(works);
+                displayModalGallery(works);
+                console.log("Nombre travaux après suppression : " + works.length);
             }
         });       
     });
@@ -212,7 +214,6 @@ function displayModalGallery(works) {
  }
  // Affichage de la gallery et masquage de l'ajout de photo dans la modale
  function showGalleryView() {
-    console.log("showGalleryView");
     galleryView.style.display = "block";
     addPhotoView.style.display = "none";
     backButton.style.display = "none";
@@ -358,13 +359,12 @@ async function addWork() {
             body: formData
         });
 
-    console.log(response.status);
-
     if (response.ok) {
-        const updatedWorks = await getWorks();
+        works = await getWorks();
+        console.log("Nombre de travaux après l'ajout : " + works.length);
 
-        displayWorks(updatedWorks);
-        displayModalGallery(updatedWorks);
+        displayWorks(works);
+        displayModalGallery(works);
 
         resetAddPhotoForm();
 
@@ -386,12 +386,12 @@ function initConnectedMode(){
 
 async function init() {
 
-    const works = await getWorks();
+    works = await getWorks();
     displayWorks(works);
     displayModalGallery(works);
 
     const categories = await getCategories();
-    displayFilters(categories, works);
+    displayFilters(categories);
     displayCategories(categories);
     
 

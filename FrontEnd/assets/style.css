@@ -294,10 +294,10 @@ form button{
 	transition: all 0.3s ease;
 }
 
-.filters button:hover {
+/*.filters button:hover {
     background-color: #1D6154;
     color: white;
-}
+}*/
 
 .filters button.active {
     background-color: #1D6154;
