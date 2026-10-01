@@ -253,7 +253,12 @@ function initUploadImage() {
         const imageIcon = document.querySelector(".upload-area i");
         const uploadText = document.querySelector(".upload-area p");
 
-
+        
+        if (file.size > 4 * 1024 * 1024) {
+            formError.textContent = "L'image ne doit pas dépasser 4 Mo.";
+            imageInput.value = "";
+            return;
+        }
         previewImage.src = URL.createObjectURL(file);
         previewImage.style.display = "block";
 
