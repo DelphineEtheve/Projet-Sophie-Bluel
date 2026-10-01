@@ -97,6 +97,16 @@ async function displayWorks(works) {
     });
 }
 
+// Gestion du formulaire de contact _ non géré dans ce projet mais prévu pour un futur développement
+function initContactForm() {
+
+    const contactForm = document.querySelector("#contact form");
+
+    contactForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+    });
+
+}
 
  // Affichage du bandeau noir du mode connecté
 function displayBanner(){
@@ -252,13 +262,26 @@ function initUploadImage() {
         const previewImage = document.querySelector(".preview-image");
         const imageIcon = document.querySelector(".upload-area i");
         const uploadText = document.querySelector(".upload-area p");
-
         
+        formError.textContent = "";
+        
+        // Vérification de la taille et du type du fichier
         if (file.size > 4 * 1024 * 1024) {
             formError.textContent = "L'image ne doit pas dépasser 4 Mo.";
             imageInput.value = "";
             return;
         }
+
+        // Vérification du type de fichier
+        const allowedTypes = ["image/jpeg","image/png"];
+        
+        if (!allowedTypes.includes(file.type)) {
+            formError.textContent = "Seuls les fichiers JPG et PNG sont autorisés.";
+            imageInput.value = "";
+            return;
+        }
+
+        
         previewImage.src = URL.createObjectURL(file);
         previewImage.style.display = "block";
 
@@ -352,7 +375,6 @@ function createFormData() {
 
 // Appel de la fonction formData si validation du formulaire
 function initAddWork() {
-    console.log("initAddWork appelée");
     validateButton.addEventListener("click", addWork);        
 
 }
@@ -413,6 +435,7 @@ async function init() {
     displayFilters(categories);
     displayCategories(categories);
     
+    initContactForm()
 
    const token = localStorage.getItem("token");
 
