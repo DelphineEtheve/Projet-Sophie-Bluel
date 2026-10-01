@@ -1,4 +1,5 @@
 let works = [];
+let formIsValid = false;
 const modal = document.querySelector(".modal");
 const galleryView = document.querySelector(".modal-gallery-view");
 const addPhotoView = document.querySelector(".modal-add-photo");
@@ -7,6 +8,7 @@ const imageInput = document.querySelector("#image");
 const titleInput = document.querySelector("#title");
 const categorySelect = document.querySelector("#category");
 const validateButton = document.querySelector(".validate-btn");
+const formError = document.querySelector(".form-error");
 
 
 // Récupération du backend
@@ -72,7 +74,7 @@ async function displayWorks(works) {
         }
         
         button.addEventListener("click", () => {
-            console.log("nombre de travaux sous filtre : " + works.length);
+            
             // Retire la classe active de tous les boutons
             document.querySelectorAll(".filters button")
             .forEach(btn => btn.classList.remove("active"));
@@ -166,8 +168,9 @@ function displayModalGallery(works) {
     const modalGallery = document.querySelector(".modal-gallery");
 
     modalGallery.innerHTML = "";
+    formError.textContent = "";
     backButton.style.display = "none";
-
+    
     works.forEach(work => {
 
         const figure = document.createElement("figure");
@@ -206,7 +209,7 @@ function displayModalGallery(works) {
 
                 displayWorks(works);
                 displayModalGallery(works);
-                console.log("Nombre travaux après suppression : " + works.length);
+                
             }
         });       
     });
@@ -290,13 +293,18 @@ function checkFormValidity() {
     const hasTitle = titleInput.value.trim() !== "";    
     const hasCategory = categorySelect.value !== "";
    
-    if (hasImage && hasTitle && hasCategory) {
+    formIsValid = hasImage && hasTitle && hasCategory;
+
+    if (formIsValid) {
+        formError.textContent = "";
         validateButton.style.backgroundColor = "#1D6154";
+        //initAddWork()
 
     } else {
-        validateButton.style.backgroundColor = "#A7A7A7";
+        validateButton.style.backgroundColor = "#A7A7A7";       
     }
 }
+
 // Appel de la vérification à chaque changement
 function initFormValidation() {
   
@@ -321,7 +329,7 @@ function resetAddPhotoForm() {
     imageIcon.style.display = "block";
     uploadButton.style.display = "block";
     uploadText.style.display = "block";
-
+    formError.textContent = "";
     validateButton.style.backgroundColor = "#A7A7A7";
 }
 
@@ -339,13 +347,19 @@ function createFormData() {
 
 // Appel de la fonction formData si validation du formulaire
 function initAddWork() {
-
+    console.log("initAddWork appelée");
     validateButton.addEventListener("click", addWork);        
 
 }
 
 // Gestion de l'ajout d'un projet dans l'API
-async function addWork() {
+async function addWork(event) {
+
+    event.preventDefault();
+    if (!formIsValid) {
+        formError.textContent = "Veuillez remplir tous les champs.";
+        return;
+    }
 
     const token = localStorage.getItem("token");
 
@@ -361,8 +375,7 @@ async function addWork() {
 
     if (response.ok) {
         works = await getWorks();
-        console.log("Nombre de travaux après l'ajout : " + works.length);
-
+       
         displayWorks(works);
         displayModalGallery(works);
 
@@ -382,6 +395,7 @@ function initConnectedMode(){
     initUploadImage()
     initFormValidation()
     initAddWork()
+    
 }
 
 async function init() {

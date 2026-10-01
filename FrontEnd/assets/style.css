@@ -582,6 +582,16 @@ footer nav ul {
     height: 100%;
     object-fit: cover;
 }
+
+.form-error {
+    min-height: 20px;
+    margin-top: 10px;
+    text-align: center;
+
+    color: #d65353;
+    font-size: 14px;
+}
+
 .validate-btn {
     margin: 0 auto;
 	margin-top: 35px;
