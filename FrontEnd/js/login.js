@@ -4,13 +4,27 @@ const form = document.querySelector("form");
 form.addEventListener("submit", async(event) => {
     event.preventDefault();
 
-    const email = document.querySelector("#email").value;
-    const password = document.querySelector("#password").value;
-
+    const emailInput = document.querySelector("#email");
+    const passwordInput = document.querySelector("#password");
     const errorMessage = document.querySelector("#error-message");
 
-    errorMessage.textContent = "";
+    const email = emailInput.value;
+    const password = passwordInput.value;   
 
+    emailInput.addEventListener("click", () => {      
+        errorMessage.textContent = "";      
+        emailInput.value = "";
+        passwordInput.value = "";
+       
+    });
+
+    passwordInput.addEventListener("click", () => {    
+        errorMessage.textContent = "";
+        emailInput.value = "";
+        passwordInput.value = "";
+    });
+
+    
          // Vérification que les champs sont bien remplis.
         if (!email || !password) {
             alert("Veuillez remplir tous les champs.");
@@ -28,16 +42,13 @@ form.addEventListener("submit", async(event) => {
     });
 
     // Vérification que l'utilisateur n'a pas fait d'erreur en se connectant
-    if (!reponse.ok) {
-        errorMessage.textContent = "Erreur dans l’identifiant ou le mot de passe";
-    }
-
     const data = await reponse.json();  
     if (reponse.ok) {
         localStorage.setItem("token", data.token);
         window.location.href = "index.html";
     } else {
         errorMessage.textContent = "Erreur dans l'identifiant ou le mot de passe.";
+  
     }
  
 })
